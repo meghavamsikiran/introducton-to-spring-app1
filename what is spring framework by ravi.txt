@@ -1,0 +1,327 @@
+What is spring?
+  It is a collection of various projects.
+A few project names :  Spring framework, Spring Data, Spring Security
+
+Each project is again a collection of sub projects OR modules
+
+Spring framework : CORE , CONTEXT, JDBC, WEB , WEB-MVC, MESSAGING
+
+Spring Data:  Spring Data JPA, Spring Data MongoDB
+
+Spring cloud:  Netflix OSS
+
+@Controller
+public class HelloController {
+
+}
+
+
+
+
+
+
+
+Working with Spring Framework, 1st Project
+*************************************
+We need the following files to work with minimal spring project
+
+1. All .java files which are project specific (e.g.   Hello.java,  OrderDAOImpl.java, CircleImpl.java...)
+
+2. Bean configuration ( this can be XML file, OR  .Java file  or hybrid)
+
+NOTE.  Objects of the classes in a spring enabled application are called BEANS
+
+What is a spring enabled application ?
+ An application that is written using spring and it's related projects
+
+3. We need dependencies. i.e  JAR files as per the need
+
+
+#1 Create a new Maven project.
+#2 Add the spring-context dependency from maven.
+#3  Update the Java compiler version if needed (it has to be above 8)
+#4. Update maven project
+#5. Create any package e.g.  com.spring.app2
+#6. Create a new class e.g.  Hello and add a method in that class e.g.  public String greet(String name) {  return ..}
+#7. Define the spring configuration file either by using XML or by using Java mode.
+#7.1  create a new XML file in the package or in the src/main/resources folder  e.g.  spring3.xml
+#7.2 Declare the XSD file for the <bean> tag and optionally for <context> tag
+#7.3 Declare all the bean definitions (object declarations) as needed in the XML file using the  
+ 	<bean> tag  : It is used to declare or define a bean
+	    The most simplest form of bean tag is
+		<bean  id="h1" class="com.demo.app1.HelloWorld"/>   
+<bean  id="h1" class="com.demo.app1.HelloWorld"/>   
+
+		HelloWorld h1 = new HelloWorld();
+#8.Create a new Java class for main method e.g.  SpringHello2.java and declare main method
+
+#9. In the main() method,  create a spring container
+
+ What is a spring container ?
+   It is a special object in spring.
+
+What does the container do ?
+   It reads (loads) the spring configuration file(s)  Java of XML and processes the tags or methods
+
+#9.1. Which class or which interfaces acts as a spring container ?
+ BeanFactory ---- > ApplicationContext
+
+One of the classes that implement the BeanFactory interface is something called, XmlBeanFactory
+
+  
+ BeanFactory  f = new XmlBeanFactory( new FileSystemResource("spring2.xml"))
+
+
+One of the implementation classes of the ApplicationContext is something called ClassPathXmlApplicationContext
+
+ ApplicationContext ctx = new ClassPathXmlApplicationContext("spring2.xml");
+
+#10.  Now we need to get a pointer to the beans (objects) mentioned in XML file.  To do this we make use of  getBean() (overload versions are there)  on the "ctx"  which is an object of ApplicationContext 
+
+    e.g.     ctx.getBean(name-of-the-class.class)
+
+              ctx.getBean("bean id that we mentioned in the xml file or java config file")
+
+
+#11. now call the methods on the bean references
+     
+
+
+Calculator --- > add(int i, int j) ,  prod(int i, int j)
+CalculatorMain  --    main method code here to retrieve  calculator bean and invoke add()/prod()
+
+Circle -->   area(double r)  peri(double r)
+CircleMain -->   main method code here to retrieve circle and execute area/perimeter 
+
+
+#12.  Create new  java configuration class for defining the beans. e.g.   HelloConfig
+
+#13.Inside the class of #12  define/declare as many methods as required to create objects/beans one for each object
+
+#14. Create a main class for HelloConfig beans, e.g.   SpringHelloConfigMain
+
+#15. Create a container to handle the beans of HelloConfig
+
+   AnnotationConfigApplicationContext ctx  = AnnotationConfigApplicationContext(the name of the class which contains @Bean methods .class goes here);
+
+   AnnotationConfigApplicationContext ctx  = AnnotationConfigApplicationContext(Hello.class);
+
+
+#16.  copy and paste the spring2.xml to spring3.xml with in the same plac
+
+***************************************************************************
+
+#1. Create a new maven project and add spring-context dependency, update java version if required
+#2.  Create a package(s). 
+
+com.spring.stereo.app
+#3. Create a few classes  e.g.   Circle, Rectangle, Square, Triangle
+
+#4. Create an XML file such as stereo-app1.xml  either in package or in resources folder
+
+#5. Grab the XSD path for spring-context.xsd  from the internet and paste it in the XML file
+
+
+
+
+STEREO TYPE ANNOTATIONS
+************************
+These annotations are used in place of <bean> tag  (alternative to <bean tag)
+i.e if we use these annotations, we need not declare the beans using <bean> tag any more in the XML file.
+These annotations are used on class declaration
+The 4 annotations are here
+
+@Component   @Service  @Repository  @Controller
+
+#6.  Define the relevant annotations e.g.  @Component in all class declarations 
+
+#7. Inform the spring container, that there are few classes which are annotated with stereo type annotations, so please go ahead and scan for all .java files in the mentioned package, then if any stereo type is found, please apply and execute it  This is done using a tag called           <context:component-scan  base-package="the package name in which there are classes with stereotype annotations">
+
+<context:component-scan base-package="com.spring.stereo.app"/>
+
+#8. Create a main class.  and create an ApplicationContext container inside the main method
+
+#9. get the beans and call methods..
+
+#10. create a new java class and on top of that class apply the annotation @ComponentScan(basePackages="....")
+
+e.g.
+
+@Configuration
+@ComponentScan(basePackages = "com.spring.stereo.app")
+public class ComponentScanJavaApproach {
+
+}
+#11. Create one more Main class, e.g. StereoScanJavaAppraoch
+
+#12. In the main method, create a container of type AnnotationConfigApplicationContext and to the constructor supply the name of that class which has @ComponentScan()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
